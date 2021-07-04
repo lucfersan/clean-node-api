@@ -7,16 +7,18 @@
   "scripts": {
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
-    "test:unit": "yarn test --watch -c jest-unit.config.js",
-    "test:integration": "yarn test --watch -c jest-integration.config.js",
+    "test:unit": "yarn test --watch -c jest-unit-config.js",
+    "test:integration": "yarn test --watch -c jest-integration-config.js",
     "test:staged": "yarn test --findRelatedTests",
     "test:ci": "yarn test --coverage"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
+    "@shelf/jest-mongodb": "^1.2.5",
     "@types/bcryptjs": "^2.4.2",
     "@types/jest": "^26.0.23",
+    "@types/mongodb": "^3.6.19",
     "@types/node": "^15.14.0",
     "@types/validator": "^13.6.2",
     "@typescript-eslint/eslint-plugin": "4",
@@ -34,6 +36,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "mongodb": "^3.6.9",
     "validator": "^13.6.0"
   }
 }
