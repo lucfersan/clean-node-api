@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev --transpile-only --respawn --ignore-watch node_modules src/main/server.ts",
+    "clear:jest": "jest --clearCache",
     "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
     "test:unit": "yarn test --watch -c jest-unit-config.js",
