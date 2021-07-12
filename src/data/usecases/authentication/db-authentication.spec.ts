@@ -126,4 +126,10 @@ describe('DbAuthenticationUseCase', () => {
     await sut.auth(makeFakeAuthenticationData())
     expect(generateSpy).toHaveBeenCalledWith('any_id')
   })
+
+  it('should return an access token on success', async () => {
+    const { sut } = makeSut()
+    const accessToken = await sut.auth(makeFakeAuthenticationData())
+    expect(accessToken).toBe('any_token')
+  })
 })
