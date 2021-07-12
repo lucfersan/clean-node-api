@@ -44,11 +44,7 @@ describe('AccountMongoRepository', () => {
       email: 'johndoe@example.com',
       password: '123456'
     })
-    const account = await sut.add({
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      password: '123456'
-    })
+    const account = await sut.loadByEmail('johndoe@example.com')
     expect(account).toBeTruthy()
     expect(account.id).toBeTruthy()
     expect(account.name).toBe('John Doe')
