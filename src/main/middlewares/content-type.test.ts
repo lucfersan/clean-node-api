@@ -7,9 +7,7 @@ describe('ContentType', () => {
       return res.send()
     })
 
-    await request(app)
-      .get('/test_content_type')
-      .expect('content-type', /json/)
+    await request(app).get('/test_content_type').expect('content-type', /json/)
   })
 
   it('should return xml type content when forced', async () => {
