@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "Lucas Fernandes <fernandes.lucas11@outlook.com>",
   "license": "MIT",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
