@@ -18,10 +18,10 @@ describe('SurveyRoutes', () => {
     await MongoHelper.disconnect()
   })
 
-  describe('POST /survey', () => {
+  describe('POST /surveys', () => {
     it('should return 204 on add survey success', async () => {
       await request(app)
-        .post('/api/survey')
+        .post('/api/surveys')
         .send({
           question: 'any_question',
           answers: [
