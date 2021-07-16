@@ -5,7 +5,7 @@
   <h3 align="center">🏛️ Clean Node API</h3>
 
   <p align="center">
-    This is an API made using TDD, Clean Architecture, Design Patterns, and SOLID, developed at the @rmanguinho 's course.
+    This is an API made using TDD, Clean Architecture, Design Patterns, and SOLID.
     <br />
     <a href="https://github.com/lucfersan/clean-node-api"><strong>Explore the docs »</strong></a>
     <br />
@@ -16,6 +16,10 @@
     <a href="https://github.com/lucfersan/clean-node-api/issues">Request Feature</a>
   </p>
 </p>
+
+#
+
+> ### Special thanks to [Rodrigo Manguinho](https://github.com/rmanguinho)
 
 #
 
@@ -48,7 +52,7 @@
 - **Builder**
 - **Singleton**
 
-## Methodologies e Designs
+## Methodologies and Designs
 
 - **TDD**
 - **Clean Architecture**
@@ -90,7 +94,7 @@
   yarn down
   ```
 
-### 2. If you down have docker
+### 2. If you don't have docker
 
 ```sh
 yarn build && yarn start
