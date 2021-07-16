@@ -1,7 +1,5 @@
-import {
-  AccountModel,
-  AddAccountModel
-} from '../../../../usecases/account/db-add-account-protocols'
+import { AccountModel } from '../../../../../domain/models/account'
+import { AddAccountModel } from '../../../../../domain/usecases/add-account'
 
 export interface DataAccountModel extends AccountModel {}
 export interface DataAddAccountModel extends AddAccountModel {}
