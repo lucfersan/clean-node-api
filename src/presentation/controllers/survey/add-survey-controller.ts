@@ -28,7 +28,7 @@ export class AddSurveyController implements Controller {
       })
       return noContent()
     } catch (error) {
-      return serverError(error.stack)
+      return serverError(error)
     }
   }
 }
