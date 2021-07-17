@@ -5,19 +5,19 @@ import {
   DataAccountModel,
   DataAddAccountModel
 } from '../../../../data/protocols/db/models/account'
+import { LoadAccountByTokenRepository } from '../../../../data/usecases/account/db-load-account-by-token-protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 
 export class AccountMongoRepository
   implements
     AddAccountRepository,
     LoadAccountByEmailRepository,
-    UpdateAccessTokenRepository
+    UpdateAccessTokenRepository,
+    LoadAccountByTokenRepository
 {
   async add(accountData: DataAddAccountModel): Promise<DataAccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-
     const result = await accountCollection.insertOne(accountData)
-
     return MongoHelper.map(result.ops[0])
   }
 
@@ -37,5 +37,14 @@ export class AccountMongoRepository
         }
       }
     )
+  }
+
+  async loadByToken(token: string, role?: string): Promise<DataAccountModel> {
+    const accountCollection = await MongoHelper.getCollection('accounts')
+    const account = await accountCollection.findOne({
+      accessToken: token,
+      role
+    })
+    return account && MongoHelper.map(account)
   }
 }
