@@ -1,11 +1,11 @@
-import { AddAccountRepository } from '../../../../data/protocols/db/account/add-account-repository'
-import { LoadAccountByEmailRepository } from '../../../../data/protocols/db/account/load-account-by-email-repository'
-import { UpdateAccessTokenRepository } from '../../../../data/protocols/db/account/update-access-token-repository'
+import { AddAccountRepository } from '@/data/protocols/db/account/add-account-repository'
+import { LoadAccountByEmailRepository } from '@/data/protocols/db/account/load-account-by-email-repository'
+import { UpdateAccessTokenRepository } from '@/data/protocols/db/account/update-access-token-repository'
 import {
   DataAccountModel,
   DataAddAccountModel
-} from '../../../../data/protocols/db/models/account'
-import { LoadAccountByTokenRepository } from '../../../../data/usecases/account/db-load-account-by-token-protocols'
+} from '@/data/protocols/db/models/account'
+import { LoadAccountByTokenRepository } from '@/data/usecases/account/db-load-account-by-token-protocols'
 import { MongoHelper } from '../helpers/mongo-helper'
 
 export class AccountMongoRepository

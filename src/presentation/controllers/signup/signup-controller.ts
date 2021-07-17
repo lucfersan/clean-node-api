@@ -1,11 +1,11 @@
-import { EmailInUseError } from '../../errors'
+import { EmailInUseError } from '@/presentation/errors'
 import {
   badRequest,
   serverError,
   ok,
   forbidden
-} from '../../helpers/http/http-helper'
-import { Validation } from '../../protocols'
+} from '@/presentation/helpers/http/http-helper'
+import { Validation } from '@/presentation/protocols'
 import {
   Controller,
   HttpRequest,

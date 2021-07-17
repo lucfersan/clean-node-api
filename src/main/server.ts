@@ -1,6 +1,6 @@
 import './config/module-alias'
 
-import { MongoHelper } from '../infra/db/mongodb/helpers/mongo-helper'
+import { MongoHelper } from '@/infra/db/mongodb/helpers/mongo-helper'
 import app from './config/app'
 import env from './config/env'
 
