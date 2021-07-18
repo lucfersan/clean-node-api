@@ -17,6 +17,6 @@ export class SurveyMongoRepository
   async loadSurveys(): Promise<DataSurveyModel[]> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     const surveys: DataSurveyModel[] = await surveyCollection.find().toArray()
-    return surveys
+    return MongoHelper.mapCollection(surveys)
   }
 }
