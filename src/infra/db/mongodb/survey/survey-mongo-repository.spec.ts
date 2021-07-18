@@ -38,11 +38,49 @@ describe('SurveyMongoRepository', () => {
     await MongoHelper.disconnect()
   })
 
-  it('should add a survey on success', async () => {
-    const sut = makeSut()
-    const surveyData = makeFakeSurveyData()
-    await sut.add(surveyData)
-    const survey = await surveyCollection.findOne({ question: 'any_question' })
-    expect(survey).toBeTruthy()
+  describe('add()', () => {
+    it('should add a survey on success', async () => {
+      const sut = makeSut()
+      const surveyData = makeFakeSurveyData()
+      await sut.add(surveyData)
+      const survey = await surveyCollection.findOne({
+        question: 'any_question'
+      })
+      expect(survey).toBeTruthy()
+    })
+  })
+
+  describe('loadSurveys()', () => {
+    it('should load surveys', async () => {
+      await surveyCollection.insertMany([
+        {
+          id: 'any_id',
+          question: 'any_question',
+          answers: [
+            {
+              image: 'any_image',
+              answer: 'any_answer'
+            }
+          ],
+          date: new Date()
+        },
+        {
+          id: 'other_id',
+          question: 'other_question',
+          answers: [
+            {
+              image: 'other_image',
+              answer: 'other_answer'
+            }
+          ],
+          date: new Date()
+        }
+      ])
+      const sut = makeSut()
+      const surveys = await sut.loadSurveys()
+      expect(surveys.length).toBe(2)
+      expect(surveys[0].question).toBe('any_question')
+      expect(surveys[1].question).toBe('other_question')
+    })
   })
 })
