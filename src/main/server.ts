@@ -1,4 +1,4 @@
-import './config'
+import './config/module-alias'
 
 import { MongoHelper } from '@/infra/db'
 
