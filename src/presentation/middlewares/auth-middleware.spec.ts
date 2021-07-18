@@ -1,12 +1,9 @@
-import {
-  AccessDeniedError,
-  forbidden,
-  HttpRequest,
-  LoadAccountByToken,
-  ok,
-  serverError,
-  AccountModel
-} from './auth-middleware-protocols'
+import { AccountModel } from '@/domain/models'
+import { LoadAccountByToken } from '@/domain/usecases'
+import { AccessDeniedError } from '@/presentation/errors'
+import { forbidden, serverError, ok } from '@/presentation/helpers/http-helper'
+import { HttpRequest } from '@/presentation/protocols'
+
 import { AuthMiddleware } from './auth-middleware'
 
 const makeFakeAccount = (): AccountModel => ({
@@ -73,6 +70,7 @@ describe('AuthMiddleware', () => {
   it('should return 200 if LoadAccountByToken returns an account', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(makeFakeHttpRequest())
+    console.log(httpResponse)
     expect(httpResponse).toEqual(ok({ accountId: 'any_id' }))
   })
 

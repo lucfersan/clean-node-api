@@ -1,4 +1,5 @@
-import { Validation, EmailValidator } from '../../../../presentation/protocols'
+import { Validation } from '@/presentation/protocols'
+import { EmailValidator } from '@/validation/protocols'
 import {
   ValidationComposite,
   RequiredFieldsValidation,

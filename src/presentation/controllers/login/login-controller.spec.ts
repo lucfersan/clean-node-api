@@ -1,17 +1,14 @@
-import { MissingParamError, ServerError } from '@/presentation/errors'
+import { Authentication, AuthenticationModel } from '@/domain/usecases'
+import { ServerError, MissingParamError } from '@/presentation/errors'
 import {
-  badRequest,
-  ok,
+  unauthorized,
   serverError,
-  unauthorized
-} from '@/presentation/helpers/http/http-helper'
+  badRequest,
+  ok
+} from '@/presentation/helpers'
+import { Validation, HttpRequest } from '@/presentation/protocols'
+
 import { LoginController } from './login-controller'
-import {
-  Authentication,
-  AuthenticationModel,
-  HttpRequest,
-  Validation
-} from './login-controller-protocols'
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {

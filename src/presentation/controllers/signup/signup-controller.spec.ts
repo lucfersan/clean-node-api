@@ -1,24 +1,19 @@
+import { AccountModel } from '@/domain/models'
+import {
+  AddAccount,
+  AddAccountModel,
+  Authentication,
+  AuthenticationModel
+} from '@/domain/usecases'
 import {
   ServerError,
   MissingParamError,
   EmailInUseError
 } from '@/presentation/errors'
-import {
-  AddAccount,
-  AccountModel,
-  AddAccountModel,
-  Validation,
-  Authentication,
-  AuthenticationModel
-} from './signup-controller-protocols'
+import { badRequest, forbidden, ok, serverError } from '@/presentation/helpers'
+import { HttpRequest, Validation } from '@/presentation/protocols'
+
 import { SignUpController } from './signup-controller'
-import { HttpRequest } from '@/presentation/protocols'
-import {
-  badRequest,
-  forbidden,
-  ok,
-  serverError
-} from '@/presentation/helpers/http/http-helper'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
   body: {

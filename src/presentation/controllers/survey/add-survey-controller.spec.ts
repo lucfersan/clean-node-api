@@ -1,12 +1,7 @@
-import {
-  HttpRequest,
-  Validation,
-  badRequest,
-  serverError,
-  noContent,
-  AddSurvey,
-  AddSurveyModel
-} from './add-survey-controller-protocols'
+import { AddSurvey, AddSurveyModel } from '@/domain/usecases'
+import { badRequest, serverError, noContent } from '@/presentation/helpers'
+import { HttpRequest, Validation } from '@/presentation/protocols'
+
 import { AddSurveyController } from './add-survey-controller'
 
 const makeFakeHttpRequest = (): HttpRequest => ({
