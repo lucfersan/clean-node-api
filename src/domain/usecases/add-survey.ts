@@ -1,6 +1,7 @@
 export type AddSurveyModel = {
   question: string
   answers: SurveyAnswer[]
+  date: Date
 }
 
 type SurveyAnswer = {
