@@ -1,4 +1,4 @@
 import { AddSurvey, AddSurveyModel } from '@/domain/usecases'
 
-export interface DataSurveyModel extends AddSurvey {}
-export interface DataAddSurveyModel extends AddSurveyModel {}
+export type DataSurveyModel = AddSurvey
+export type DataAddSurveyModel = AddSurveyModel
