@@ -89,4 +89,30 @@ describe('SurveyMongoRepository', () => {
       expect(surveys.length).toBe(0)
     })
   })
+
+  describe('loadById()', () => {
+    it('should load survey by id', async () => {
+      const response = await surveyCollection.insertOne({
+        question: 'any_question',
+        answers: [
+          {
+            image: 'any_image',
+            answer: 'any_answer'
+          }
+        ],
+        date: new Date()
+      })
+      const id = response.ops[0]._id
+      const sut = makeSut()
+      const survey = await sut.loadById(id)
+      expect(survey).toBeTruthy()
+      expect(survey.question).toBe('any_question')
+    })
+
+    it('should return an empty array', async () => {
+      const sut = makeSut()
+      const surveys = await sut.loadSurveys()
+      expect(surveys.length).toBe(0)
+    })
+  })
 })
