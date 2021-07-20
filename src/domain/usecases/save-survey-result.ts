@@ -7,6 +7,6 @@ export type SaveSurveyResultModel = {
   date: Date
 }
 
-export interface SurveyResult {
+export interface SaveSurveyResult {
   save: (surveyData: SaveSurveyResultModel) => Promise<SurveyResultModel>
 }
