@@ -40,7 +40,7 @@ const makeSut = (): SurveyResultMongoRepository => {
   return new SurveyResultMongoRepository()
 }
 
-describe('SurveyMongoRepository', () => {
+describe('SurveyResultMongoRepository', () => {
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
   })
