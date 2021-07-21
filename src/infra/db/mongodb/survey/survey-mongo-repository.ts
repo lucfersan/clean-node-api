@@ -21,12 +21,12 @@ export class SurveyMongoRepository
   async loadSurveys(): Promise<DataSurveyModel[]> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     const surveys = await surveyCollection.find().toArray()
-    return MongoHelper.mapCollection(surveys)
+    return surveys && MongoHelper.mapCollection(surveys)
   }
 
   async loadById(id: string): Promise<DataSurveyModel> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     const survey = await surveyCollection.findOne({ _id: id })
-    return MongoHelper.map(survey)
+    return survey && MongoHelper.map(survey)
   }
 }
