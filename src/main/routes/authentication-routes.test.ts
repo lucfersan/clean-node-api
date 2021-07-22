@@ -25,10 +25,10 @@ describe('AuthenticationRoutes', () => {
       await request(app)
         .post('/api/signup')
         .send({
-          name: 'John Doe',
-          email: 'johndoe@example.com',
-          password: '123456',
-          passwordConfirmation: '123456'
+          name: 'any_name',
+          email: 'any_email@mail.com',
+          password: 'any_password',
+          passwordConfirmation: 'any_password'
         })
         .expect(200)
     })
@@ -36,17 +36,17 @@ describe('AuthenticationRoutes', () => {
 
   describe('POST /login', () => {
     it('should return 200 on login', async () => {
-      const password = await hash('123456', 12)
+      const password = await hash('any_password', 12)
       await accountCollection.insertOne({
-        name: 'John Doe',
-        email: 'johndoe@example.com',
+        name: 'any_name',
+        email: 'any_email@mail.com',
         password
       })
       await request(app)
         .post('/api/login')
         .send({
-          email: 'johndoe@example.com',
-          password: '123456'
+          email: 'any_email@mail.com',
+          password: 'any_password'
         })
         .expect(200)
     })
@@ -55,8 +55,8 @@ describe('AuthenticationRoutes', () => {
       await request(app)
         .post('/api/login')
         .send({
-          email: 'johndoe@example.com',
-          password: '123456'
+          email: 'any_email@mail.com',
+          password: 'any_password'
         })
         .expect(401)
     })

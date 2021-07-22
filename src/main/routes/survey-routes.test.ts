@@ -8,10 +8,10 @@ import app from '@/main/config/app'
 import env from '@/main/config/env'
 
 const makeAccessToken = async (): Promise<string> => {
-  const password = await hash('123456', 12)
+  const password = await hash('any_password', 12)
   const result = await accountCollection.insertOne({
-    name: 'John Doe',
-    email: 'johndoe@example.com',
+    name: 'any_name',
+    email: 'any_email@mail.com',
     password,
     role: 'admin'
   })

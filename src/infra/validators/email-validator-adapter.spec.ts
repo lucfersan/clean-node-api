@@ -26,7 +26,7 @@ describe('EmailValidatorAdapter', () => {
   it('should return true if validation succeeds', () => {
     const sut = makeSut()
 
-    const isValid = sut.isValid('johndoe@example.com')
+    const isValid = sut.isValid('any_email@mail.com')
 
     expect(isValid).toBe(true)
   })
@@ -36,9 +36,9 @@ describe('EmailValidatorAdapter', () => {
 
     const isEmailSpy = jest.spyOn(validator, 'isEmail')
 
-    sut.isValid('johndoe@example.com')
+    sut.isValid('any_email@mail.com')
 
-    expect(isEmailSpy).toHaveBeenCalledWith('johndoe@example.com')
+    expect(isEmailSpy).toHaveBeenCalledWith('any_email@mail.com')
   })
 
   it('should throw if validator throws', () => {
