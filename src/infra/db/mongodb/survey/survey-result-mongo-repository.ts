@@ -1,10 +1,12 @@
-import { SaveSurveyResultRepository } from '@/data/protocols'
-import { DataSaveSurveyResultParams } from '@/data/protocols/db/models/survey-result'
-import { SurveyResultModel } from '@/domain/models'
+import {
+  SaveSurveyResultRepository,
+  DataSurveyResultModel,
+  DataSaveSurveyResultParams
+} from '@/data/protocols'
 import { MongoHelper } from '@/infra/db'
 
 export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
-  async save(data: DataSaveSurveyResultParams): Promise<SurveyResultModel> {
+  async save(data: DataSaveSurveyResultParams): Promise<DataSurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     )
