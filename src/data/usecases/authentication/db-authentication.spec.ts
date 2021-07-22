@@ -5,16 +5,10 @@ import {
   UpdateAccessTokenRepository
 } from '@/data/protocols'
 import { AccountModel } from '@/domain/models'
+import { mockAccountModel, throwError } from '@/domain/test'
 import { AuthenticationParams } from '@/domain/usecases'
 
 import { DbAuthentication } from './db-authentication'
-
-const makeFakeAccount = (): AccountModel => ({
-  id: 'any_id',
-  name: 'any_name',
-  email: 'any_email@mail.com',
-  password: 'hashed_password'
-})
 
 const makeFakeAuthenticationData = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
@@ -26,7 +20,7 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
     implements LoadAccountByEmailRepository
   {
     async loadByEmail(email: string): Promise<AccountModel> {
-      return await new Promise(resolve => resolve(makeFakeAccount()))
+      return await new Promise(resolve => resolve(mockAccountModel()))
     }
   }
   return new LoadAccountByEmailRepositoryStub()
@@ -117,9 +111,7 @@ describe('DbAuthenticationUseCase', () => {
 
   it('should throw if HashComparer throws', async () => {
     const { sut, hashComparerStub } = makeSut()
-    jest.spyOn(hashComparerStub, 'compare').mockImplementationOnce(() => {
-      throw new Error()
-    })
+    jest.spyOn(hashComparerStub, 'compare').mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthenticationData())
     await expect(promise).rejects.toThrow()
   })
@@ -128,7 +120,7 @@ describe('DbAuthenticationUseCase', () => {
     const { sut, hashComparerStub } = makeSut()
     const compareSpy = jest.spyOn(hashComparerStub, 'compare')
     await sut.auth(makeFakeAuthenticationData())
-    expect(compareSpy).toHaveBeenCalledWith('any_password', 'hashed_password')
+    expect(compareSpy).toHaveBeenCalledWith('any_password', 'any_password')
   })
 
   it('should return null if HashComparer returns false', async () => {
@@ -142,9 +134,7 @@ describe('DbAuthenticationUseCase', () => {
 
   it('should throw if Encrypter throws', async () => {
     const { sut, encrypterStub } = makeSut()
-    jest.spyOn(encrypterStub, 'encrypt').mockImplementationOnce(() => {
-      throw new Error()
-    })
+    jest.spyOn(encrypterStub, 'encrypt').mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthenticationData())
     await expect(promise).rejects.toThrow()
   })
@@ -176,9 +166,7 @@ describe('DbAuthenticationUseCase', () => {
     const { sut, updatedAccessTokenRepositoryStub } = makeSut()
     jest
       .spyOn(updatedAccessTokenRepositoryStub, 'updateAccessToken')
-      .mockImplementationOnce(() => {
-        throw new Error()
-      })
+      .mockImplementationOnce(throwError)
     const promise = sut.auth(makeFakeAuthenticationData())
     await expect(promise).rejects.toThrow()
   })
