@@ -1,5 +1,5 @@
 import { SurveyResultModel } from '@/domain/models'
-import { SaveSurveyResultModel } from '@/domain/usecases'
+import { SaveSurveyResultParams } from '@/domain/usecases'
 
 export type DataSurveyResultModel = SurveyResultModel
-export type DataSaveSurveyResultModel = SaveSurveyResultModel
+export type DataSaveSurveyResultParams = SaveSurveyResultParams

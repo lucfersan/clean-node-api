@@ -4,7 +4,7 @@ import {
   LoadAccountByEmailRepository
 } from '@/data/protocols'
 import { AccountModel } from '@/domain/models'
-import { AddAccount, AddAccountModel } from '@/domain/usecases'
+import { AddAccount, AddAccountParams } from '@/domain/usecases'
 
 export class DbAddAccount implements AddAccount {
   constructor(
@@ -13,7 +13,7 @@ export class DbAddAccount implements AddAccount {
     private readonly addAccountRepository: AddAccountRepository
   ) {}
 
-  async add(accountData: AddAccountModel): Promise<AccountModel> {
+  async add(accountData: AddAccountParams): Promise<AccountModel> {
     const userExists = await this.loadAccountByEmailRepository.loadByEmail(
       accountData.email
     )

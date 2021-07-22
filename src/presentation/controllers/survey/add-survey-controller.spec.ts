@@ -1,6 +1,6 @@
 import MockDate from 'mockdate'
 
-import { AddSurvey, AddSurveyModel } from '@/domain/usecases'
+import { AddSurvey, AddSurveyParams } from '@/domain/usecases'
 import { badRequest, serverError, noContent } from '@/presentation/helpers'
 import { HttpRequest, Validation } from '@/presentation/protocols'
 
@@ -30,7 +30,7 @@ const makeValidation = (): Validation => {
 
 const makeAddSurvey = (): AddSurvey => {
   class AddSurveyStub implements AddSurvey {
-    async add(surveyData: AddSurveyModel): Promise<void> {
+    async add(surveyData: AddSurveyParams): Promise<void> {
       return await Promise.resolve()
     }
   }

@@ -1,11 +1,11 @@
 import { Collection } from 'mongodb'
 
-import { DataAddSurveyModel } from '@/data/protocols'
+import { DataAddSurveyParams } from '@/data/protocols'
 import { MongoHelper } from '@/infra/db'
 
 import { SurveyMongoRepository } from './survey-mongo-repository'
 
-const makeFakeSurveyData = (): DataAddSurveyModel => ({
+const makeFakeSurveyData = (): DataAddSurveyParams => ({
   question: 'any_question',
   answers: [
     {

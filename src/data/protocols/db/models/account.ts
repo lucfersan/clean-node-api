@@ -1,5 +1,5 @@
 import { AccountModel } from '@/domain/models'
-import { AddAccountModel } from '@/domain/usecases'
+import { AddAccountParams } from '@/domain/usecases'
 
 export type DataAccountModel = AccountModel
-export type DataAddAccountModel = AddAccountModel
+export type DataAddAccountParams = AddAccountParams

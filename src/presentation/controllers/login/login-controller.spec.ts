@@ -1,4 +1,4 @@
-import { Authentication, AuthenticationModel } from '@/domain/usecases'
+import { Authentication, AuthenticationParams } from '@/domain/usecases'
 import { ServerError, MissingParamError } from '@/presentation/errors'
 import {
   unauthorized,
@@ -12,7 +12,7 @@ import { LoginController } from './login-controller'
 
 const makeAuthentication = (): Authentication => {
   class AuthenticationStub implements Authentication {
-    async auth(authenticationData: AuthenticationModel): Promise<string> {
+    async auth(authenticationData: AuthenticationParams): Promise<string> {
       return await new Promise(resolve => resolve('any_token'))
     }
   }
