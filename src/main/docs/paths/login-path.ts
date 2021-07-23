@@ -1,12 +1,12 @@
 export const loginPath = {
   post: {
     tags: ['Login'],
-    summary: 'Api para autenticar um usuário',
+    summary: 'API to authenticate a user',
     requestBody: {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/schemas/login-params'
+            $ref: '#/schemas/loginParams'
           },
           example: {
             email: 'johndoe@example.com',
@@ -17,7 +17,7 @@ export const loginPath = {
     },
     responses: {
       200: {
-        description: 'Sucesso',
+        description: 'Success',
         content: {
           'application/json': {
             schema: {
@@ -29,6 +29,18 @@ export const loginPath = {
             }
           }
         }
+      },
+      400: {
+        $ref: '#/components/badRequest'
+      },
+      401: {
+        $ref: '#/components/unauthorized'
+      },
+      404: {
+        $ref: '#/components/notFound'
+      },
+      500: {
+        $ref: '#/components/serverError'
       }
     }
   }
