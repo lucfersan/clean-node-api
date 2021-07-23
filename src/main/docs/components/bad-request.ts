@@ -4,9 +4,6 @@ export const badRequest = {
     'application/json': {
       schema: {
         $ref: '#/schemas/error'
-      },
-      example: {
-        error: 'Missing param: name'
       }
     }
   }

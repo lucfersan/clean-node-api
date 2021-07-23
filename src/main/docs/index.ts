@@ -1,6 +1,21 @@
-import { badRequest, notFound, serverError, unauthorized } from './components'
-import { loginPath } from './paths'
-import { accountSchema, errorSchema, loginParamsSchema } from './schemas'
+import {
+  badRequest,
+  notFound,
+  serverError,
+  unauthorized,
+  forbidden,
+  noContent
+} from './components'
+import { loginPath, surveyPath } from './paths'
+import {
+  accountSchema,
+  errorSchema,
+  loginParamsSchema,
+  surveySchema,
+  surveysSchema,
+  surveyAnswerSchema,
+  apiKeyAuthSchema
+} from './schemas'
 
 const configDocs = {
   openapi: '3.0.0',
@@ -16,32 +31,39 @@ const configDocs = {
   },
   servers: [
     {
-      url: 'lfs-clean-api.herokuapp.com/api',
-      description: 'This is the production URL'
-    },
-    {
-      url: 'localhost:3333/api',
-      description: 'This is the development URL'
+      url: '/api'
     }
   ],
   tags: [
     {
       name: 'Login'
+    },
+    {
+      name: 'Survey'
     }
   ],
   paths: {
-    '/login': loginPath
+    '/login': loginPath,
+    '/surveys': surveyPath
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
-    error: errorSchema
+    error: errorSchema,
+    survey: surveySchema,
+    surveys: surveysSchema,
+    surveyAnswer: surveyAnswerSchema
   },
   components: {
+    securitySchemes: {
+      apiKeyAuth: apiKeyAuthSchema
+    },
     badRequest,
     serverError,
     unauthorized,
-    notFound
+    notFound,
+    forbidden,
+    noContent
   }
 }
 

@@ -4,9 +4,6 @@ export const unauthorized = {
     'application/json': {
       schema: {
         $ref: '#/schemas/error'
-      },
-      example: {
-        error: 'Unauthorized'
       }
     }
   }
