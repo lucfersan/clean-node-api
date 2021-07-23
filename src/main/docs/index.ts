@@ -6,11 +6,12 @@ import {
   forbidden,
   noContent
 } from './components'
-import { loginPath, surveyPath } from './paths'
+import { loginPath, signupPath, surveyPath } from './paths'
 import {
   accountSchema,
   errorSchema,
   loginParamsSchema,
+  signupParamsSchema,
   surveySchema,
   surveysSchema,
   surveyAnswerSchema,
@@ -36,7 +37,7 @@ const configDocs = {
   ],
   tags: [
     {
-      name: 'Login'
+      name: 'Authentication'
     },
     {
       name: 'Survey'
@@ -44,11 +45,13 @@ const configDocs = {
   ],
   paths: {
     '/login': loginPath,
+    '/signup': signupPath,
     '/surveys': surveyPath
   },
   schemas: {
     account: accountSchema,
     loginParams: loginParamsSchema,
+    signupParams: signupParamsSchema,
     error: errorSchema,
     survey: surveySchema,
     surveys: surveysSchema,
