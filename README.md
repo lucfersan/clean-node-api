@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.com/lucfersan/clean-node-api.svg?branch=main)](https://travis-ci.com/lucfersan/clean-node-api)
 [![Coverage Status](https://coveralls.io/repos/github/lucfersan/clean-node-api/badge.svg)](https://coveralls.io/github/lucfersan/clean-node-api)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Open Source](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://opensource.org/)
+
+#
 
 <p align="center">
   <h3 align="center">🏛️ Clean Node API</h3>
