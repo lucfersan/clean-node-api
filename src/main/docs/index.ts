@@ -15,7 +15,8 @@ import {
   surveySchema,
   surveysSchema,
   surveyAnswerSchema,
-  apiKeyAuthSchema
+  apiKeyAuthSchema,
+  addSurveyParamsSchema
 } from './schemas'
 
 const configDocs = {
@@ -55,7 +56,8 @@ const configDocs = {
     error: errorSchema,
     survey: surveySchema,
     surveys: surveysSchema,
-    surveyAnswer: surveyAnswerSchema
+    surveyAnswer: surveyAnswerSchema,
+    addSurveyParams: addSurveyParamsSchema
   },
   components: {
     securitySchemes: {
