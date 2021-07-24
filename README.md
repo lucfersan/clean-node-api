@@ -116,6 +116,12 @@ Contributions are what make the open source community such an amazing place to b
 
 #
 
+> ## 📑 Documentation
+
+The documentation is made using swagger and it is available at lfs-clean-api.herokuapp.com/api-docs
+
+#
+
 > ## 🗞️ License
 
 Distributed under the MIT License. See `LICENSE` for more information.
