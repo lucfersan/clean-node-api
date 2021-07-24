@@ -1,4 +1,4 @@
-export const serverError = {
+export const serverErrorComponent = {
   description: 'Internal server error',
   content: {
     'application/json': {

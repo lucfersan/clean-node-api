@@ -1,25 +1,6 @@
-import {
-  badRequest,
-  notFound,
-  serverError,
-  unauthorized,
-  forbidden,
-  noContent
-} from './components'
-import { loginPath, signupPath, surveyPath, surveyResultPath } from './paths'
-import {
-  accountSchema,
-  errorSchema,
-  loginParamsSchema,
-  signupParamsSchema,
-  surveySchema,
-  surveysSchema,
-  surveyAnswerSchema,
-  apiKeyAuthSchema,
-  addSurveyParamsSchema,
-  surveyResultParamsSchema,
-  surveyResultSchema
-} from './schemas'
+import { componentsConfig } from './components-config'
+import { pathsConfig } from './paths-config'
+import { schemasConfig } from './schemas-config'
 
 const configDocs = {
   openapi: '3.0.0',
@@ -46,35 +27,9 @@ const configDocs = {
       name: 'Survey'
     }
   ],
-  paths: {
-    '/login': loginPath,
-    '/signup': signupPath,
-    '/surveys': surveyPath,
-    '/surveys/{surveyId}/results': surveyResultPath
-  },
-  schemas: {
-    account: accountSchema,
-    loginParams: loginParamsSchema,
-    signupParams: signupParamsSchema,
-    error: errorSchema,
-    survey: surveySchema,
-    surveys: surveysSchema,
-    surveyResult: surveyResultSchema,
-    surveyAnswer: surveyAnswerSchema,
-    addSurveyParams: addSurveyParamsSchema,
-    surveyResultParams: surveyResultParamsSchema
-  },
-  components: {
-    securitySchemes: {
-      apiKeyAuth: apiKeyAuthSchema
-    },
-    badRequest,
-    serverError,
-    unauthorized,
-    notFound,
-    forbidden,
-    noContent
-  }
+  paths: pathsConfig,
+  schemas: schemasConfig,
+  components: componentsConfig
 }
 
 export default configDocs
