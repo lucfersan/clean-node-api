@@ -6,7 +6,7 @@ import {
   forbidden,
   noContent
 } from './components'
-import { loginPath, signupPath, surveyPath } from './paths'
+import { loginPath, signupPath, surveyPath, surveyResultPath } from './paths'
 import {
   accountSchema,
   errorSchema,
@@ -16,7 +16,9 @@ import {
   surveysSchema,
   surveyAnswerSchema,
   apiKeyAuthSchema,
-  addSurveyParamsSchema
+  addSurveyParamsSchema,
+  surveyResultParamsSchema,
+  surveyResultSchema
 } from './schemas'
 
 const configDocs = {
@@ -47,7 +49,8 @@ const configDocs = {
   paths: {
     '/login': loginPath,
     '/signup': signupPath,
-    '/surveys': surveyPath
+    '/surveys': surveyPath,
+    '/surveys/{surveyId}/results': surveyResultPath
   },
   schemas: {
     account: accountSchema,
@@ -56,8 +59,10 @@ const configDocs = {
     error: errorSchema,
     survey: surveySchema,
     surveys: surveysSchema,
+    surveyResult: surveyResultSchema,
     surveyAnswer: surveyAnswerSchema,
-    addSurveyParams: addSurveyParamsSchema
+    addSurveyParams: addSurveyParamsSchema,
+    surveyResultParams: surveyResultParamsSchema
   },
   components: {
     securitySchemes: {
