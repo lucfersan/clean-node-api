@@ -6,7 +6,7 @@ import {
   LoadSurveysRepository,
   SaveSurveyResultRepository
 } from '@/data/protocols'
-import { SurveyModel, SurveyResultModel } from '@/domain/models'
+import { SurveyModel } from '@/domain/models'
 import {
   mockFakeSurveys,
   mockSurveyModel,
@@ -42,11 +42,7 @@ export const mockLoadSurveysRepository = (): LoadSurveysRepository => {
 export const mockSaveSurveyResultRepository =
   (): SaveSurveyResultRepository => {
     class SaveSurveyResultRepositoryStub implements SaveSurveyResultRepository {
-      async save(
-        surveyData: SaveSurveyResultParams
-      ): Promise<SurveyResultModel> {
-        return mockSurveyResultModel()
-      }
+      async save(surveyData: SaveSurveyResultParams): Promise<void> {}
     }
     return new SaveSurveyResultRepositoryStub()
   }
