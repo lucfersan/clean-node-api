@@ -1,6 +1,8 @@
 import {
   AddSurveyRepository,
+  DataSurveyResultModel,
   LoadSurveyByIdRepository,
+  LoadSurveyResultRepository,
   LoadSurveysRepository,
   SaveSurveyResultRepository
 } from '@/data/protocols'
@@ -47,4 +49,14 @@ export const mockSaveSurveyResultRepository =
       }
     }
     return new SaveSurveyResultRepositoryStub()
+  }
+
+export const mockLoadSurveyResultRepository =
+  (): LoadSurveyResultRepository => {
+    class LoadSurveyResultRepositoryStub implements LoadSurveyResultRepository {
+      async loadBySurveyId(surveyId: string): Promise<DataSurveyResultModel> {
+        return mockSurveyResultModel()
+      }
+    }
+    return new LoadSurveyResultRepositoryStub()
   }
