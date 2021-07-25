@@ -3,11 +3,14 @@ import { ObjectId } from 'mongodb'
 import {
   SaveSurveyResultRepository,
   DataSurveyResultModel,
-  DataSaveSurveyResultParams
+  DataSaveSurveyResultParams,
+  LoadSurveyResultRepository
 } from '@/data/protocols'
 import { MongoHelper, QueryBuilder } from '@/infra/db'
 
-export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
+export class SurveyResultMongoRepository
+  implements SaveSurveyResultRepository, LoadSurveyResultRepository
+{
   async save(data: DataSaveSurveyResultParams): Promise<DataSurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
@@ -31,9 +34,7 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository {
     return surveyResult
   }
 
-  private async loadBySurveyId(
-    surveyId: string
-  ): Promise<DataSurveyResultModel> {
+  async loadBySurveyId(surveyId: string): Promise<DataSurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     )
