@@ -1,4 +1,4 @@
-import { Collection } from 'mongodb'
+import { Collection, ObjectId } from 'mongodb'
 
 import { DataAccountModel, DataSurveyModel } from '@/data/protocols'
 import { MongoHelper } from '@/infra/db'
@@ -70,19 +70,19 @@ describe('SurveyResultMongoRepository', () => {
         date: new Date()
       })
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toBeTruthy()
-      expect(surveyResult.accountId).toEqual(account.id)
       expect(surveyResult.surveyId).toEqual(survey.id)
-      expect(surveyResult.answer).toBe(survey.answers[0].answer)
+      expect(surveyResult.answers[0].answer).toBe(survey.answers[0].answer)
+      expect(surveyResult.answers[0].count).toBe(1)
+      expect(surveyResult.answers[0].percent).toBe(100)
     })
 
     it('should update a survey result if it is not new', async () => {
       const sut = makeSut()
       const survey = await makeSurvey()
       const account = await makeAccount()
-      const response = await surveyResultCollection.insertOne({
-        surveyId: survey.id,
-        accountId: account.id,
+      await surveyResultCollection.insertOne({
+        surveyId: new ObjectId(survey.id),
+        accountId: new ObjectId(account.id),
         answer: survey.answers[0].answer,
         date: new Date()
       })
@@ -93,10 +93,10 @@ describe('SurveyResultMongoRepository', () => {
         date: new Date()
       })
       expect(surveyResult).toBeTruthy()
-      expect(surveyResult.id).toEqual(response.ops[0]._id)
-      expect(surveyResult.accountId).toEqual(account.id)
       expect(surveyResult.surveyId).toEqual(survey.id)
-      expect(surveyResult.answer).toBe(survey.answers[1].answer)
+      expect(surveyResult.answers[0].answer).toBe(survey.answers[1].answer)
+      expect(surveyResult.answers[0].count).toBe(1)
+      expect(surveyResult.answers[0].percent).toBe(100)
     })
   })
 })
