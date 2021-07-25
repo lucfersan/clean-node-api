@@ -8,7 +8,8 @@ import {
   surveyResultSchema,
   surveyAnswerSchema,
   addSurveyParamsSchema,
-  surveyResultParamsSchema
+  surveyResultParamsSchema,
+  surveyResultAnswerSchema
 } from './schemas'
 
 export const schemasConfig = {
@@ -21,5 +22,6 @@ export const schemasConfig = {
   surveyResult: surveyResultSchema,
   surveyAnswer: surveyAnswerSchema,
   addSurveyParams: addSurveyParamsSchema,
-  surveyResultParams: surveyResultParamsSchema
+  surveyResultParams: surveyResultParamsSchema,
+  surveyResultAnswer: surveyResultAnswerSchema
 }
