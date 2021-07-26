@@ -109,7 +109,7 @@ describe('SurveyResultMongoRepository', () => {
   })
 
   describe('loadBySurveyId()', () => {
-    it('should load a survey result', async () => {
+    it('should return null if there is no survey result', async () => {
       const sut = makeSut()
       const survey = await makeSurvey()
       const account = await makeAccount()
@@ -148,6 +148,13 @@ describe('SurveyResultMongoRepository', () => {
       expect(surveyResult.answers[1].percent).toBe(25)
       expect(surveyResult.answers[2].count).toBe(0)
       expect(surveyResult.answers[2].percent).toBe(0)
+    })
+
+    it('should return null if there is no survey result', async () => {
+      const sut = makeSut()
+      const survey = await makeSurvey()
+      const surveyResult = await sut.loadBySurveyId(survey.id)
+      expect(surveyResult).toBeNull()
     })
   })
 })
