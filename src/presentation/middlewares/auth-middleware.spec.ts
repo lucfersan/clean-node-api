@@ -1,6 +1,6 @@
 import { LoadAccountByToken } from '@/domain/usecases'
 import { AccessDeniedError } from '@/presentation/errors'
-import { forbidden, serverError, ok } from '@/presentation/helpers/http-helper'
+import { forbidden, serverError, ok } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadAccountByToken } from '@/presentation/test'
 

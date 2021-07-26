@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-import { adaptRoute } from '@/main/adapters/express-route-adapter'
+import { adaptRoute } from '@/main/adapters'
 import {
   makeSaveSurveyResultController,
   makeLoadSurveyResultController

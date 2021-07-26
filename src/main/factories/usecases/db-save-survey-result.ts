@@ -1,4 +1,4 @@
-import { DbSaveSurveyResult } from '@/data/usecases/survey/db-save-survey-result'
+import { DbSaveSurveyResult } from '@/data/usecases'
 import { SaveSurveyResult } from '@/domain/usecases'
 import { SurveyResultMongoRepository } from '@/infra/db'
 
