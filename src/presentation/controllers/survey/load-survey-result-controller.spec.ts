@@ -1,7 +1,9 @@
-import { throwError } from '@/domain/test'
+import MockDate from 'mockdate'
+
+import { mockSurveyResultModel, throwError } from '@/domain/test'
 import { LoadSurveyById, LoadSurveyResult } from '@/domain/usecases'
 import { InvalidParamError } from '@/presentation/errors'
-import { forbidden, serverError } from '@/presentation/helpers'
+import { forbidden, ok, serverError } from '@/presentation/helpers'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadSurveyById, mockLoadSurveyResult } from '@/presentation/test'
 
@@ -34,6 +36,14 @@ const makeSut = (): SutTypes => {
 }
 
 describe('LoadSurveyResultController', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   it('should call LoadSurveyById with correct id', async () => {
     const { sut, loadSurveyByIdStub } = makeSut()
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
@@ -74,5 +84,11 @@ describe('LoadSurveyResultController', () => {
     const httpRequest = mockRequest()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  it('should return 200 on success', async () => {
+    const { sut } = makeSut()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(ok(mockSurveyResultModel()))
   })
 })
