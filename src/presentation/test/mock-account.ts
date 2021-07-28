@@ -1,3 +1,5 @@
+import faker from 'faker'
+
 import { AccountModel } from '@/domain/models'
 import { mockAccountModel } from '@/domain/test'
 import {
@@ -8,30 +10,34 @@ import {
   LoadAccountByToken
 } from '@/domain/usecases'
 
-export const mockAddAccount = (): AddAccount => {
-  class AddAccountStub implements AddAccount {
-    async add(account: AddAccountParams): Promise<AccountModel> {
-      return mockAccountModel()
-    }
+export class AddAccountSpy implements AddAccount {
+  accountModel = mockAccountModel()
+  addAccountParams: AddAccountParams
+
+  async add(data: AddAccountParams): Promise<AccountModel> {
+    this.addAccountParams = data
+    return this.accountModel
   }
-  return new AddAccountStub()
 }
 
-export const mockAuthentication = (): Authentication => {
-  class AuthenticationStub implements Authentication {
-    async auth(authenticationData: AuthenticationParams): Promise<string> {
-      return 'any_token'
-    }
-  }
+export class AuthenticationSpy implements Authentication {
+  authenticationParams: AuthenticationParams
+  token = faker.datatype.uuid()
 
-  return new AuthenticationStub()
+  async auth(data: AuthenticationParams): Promise<string> {
+    this.authenticationParams = data
+    return this.token
+  }
 }
 
-export const mockLoadAccountByToken = (): LoadAccountByToken => {
-  class LoadAccountByTokenStub implements LoadAccountByToken {
-    async load(token: string, role?: string): Promise<AccountModel> {
-      return mockAccountModel()
-    }
+export class LoadAccountByTokenSpy implements LoadAccountByToken {
+  accountModel = mockAccountModel()
+  token: string
+  role: string
+
+  async load(token: string, role?: string): Promise<AccountModel> {
+    this.token = token
+    this.role = role
+    return this.accountModel
   }
-  return new LoadAccountByTokenStub()
 }

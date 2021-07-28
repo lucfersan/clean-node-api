@@ -15,9 +15,9 @@ export class AccountMongoRepository
     UpdateAccessTokenRepository,
     LoadAccountByTokenRepository
 {
-  async add(accountData: DataAddAccountParams): Promise<DataAccountModel> {
+  async add(data: DataAddAccountParams): Promise<DataAccountModel> {
     const accountCollection = await MongoHelper.getCollection('accounts')
-    const result = await accountCollection.insertOne(accountData)
+    const result = await accountCollection.insertOne(data)
     return MongoHelper.map(result.ops[0])
   }
 

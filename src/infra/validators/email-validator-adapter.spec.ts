@@ -1,4 +1,7 @@
+import faker from 'faker'
 import validator from 'validator'
+
+import { throwError } from '@/domain/test'
 
 import { EmailValidatorAdapter } from './email-validator-adapter'
 
@@ -15,39 +18,30 @@ const makeSut = (): EmailValidatorAdapter => {
 describe('EmailValidatorAdapter', () => {
   it('should return false if validation fails', () => {
     const sut = makeSut()
-
     jest.spyOn(validator, 'isEmail').mockReturnValueOnce(false)
-
-    const isValid = sut.isValid('invalid_email@mail.com')
-
+    const email = faker.internet.email()
+    const isValid = sut.isValid(email)
     expect(isValid).toBe(false)
   })
 
   it('should return true if validation succeeds', () => {
     const sut = makeSut()
-
-    const isValid = sut.isValid('any_email@mail.com')
-
+    const email = faker.internet.email()
+    const isValid = sut.isValid(email)
     expect(isValid).toBe(true)
   })
 
   it('should call validator with correct email', () => {
     const sut = makeSut()
-
     const isEmailSpy = jest.spyOn(validator, 'isEmail')
-
-    sut.isValid('any_email@mail.com')
-
-    expect(isEmailSpy).toHaveBeenCalledWith('any_email@mail.com')
+    const email = faker.internet.email()
+    sut.isValid(email)
+    expect(isEmailSpy).toHaveBeenCalledWith(email)
   })
 
   it('should throw if validator throws', () => {
     const sut = makeSut()
-
-    jest.spyOn(validator, 'isEmail').mockImplementationOnce(() => {
-      throw new Error()
-    })
-
+    jest.spyOn(validator, 'isEmail').mockImplementationOnce(throwError)
     expect(sut.isValid).toThrow()
   })
 })

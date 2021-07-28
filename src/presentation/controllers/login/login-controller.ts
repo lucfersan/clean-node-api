@@ -5,12 +5,8 @@ import {
   serverError,
   unauthorized
 } from '@/presentation/helpers'
-import {
-  Controller,
-  Validation,
-  HttpRequest,
-  HttpResponse
-} from '@/presentation/protocols'
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
+import { Validation } from '@/validation/protocols'
 
 export class LoginController implements Controller {
   constructor(

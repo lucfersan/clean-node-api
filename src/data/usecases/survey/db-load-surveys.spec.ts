@@ -1,22 +1,21 @@
 import MockDate from 'mockdate'
 
-import { LoadSurveysRepository } from '@/data/protocols'
-import { mockLoadSurveysRepository } from '@/data/test'
-import { mockFakeSurveys } from '@/domain/test'
+import { LoadSurveysRepositorySpy } from '@/data/test'
+import { throwError } from '@/domain/test'
 
 import { DbLoadSurveys } from './db-load-surveys'
 
 type SutTypes = {
   sut: DbLoadSurveys
-  loadSurveysRepositoryStub: LoadSurveysRepository
+  loadSurveysRepositorySpy: LoadSurveysRepositorySpy
 }
 
 const makeSut = (): SutTypes => {
-  const loadSurveysRepositoryStub = mockLoadSurveysRepository()
-  const sut = new DbLoadSurveys(loadSurveysRepositoryStub)
+  const loadSurveysRepositorySpy = new LoadSurveysRepositorySpy()
+  const sut = new DbLoadSurveys(loadSurveysRepositorySpy)
   return {
     sut,
-    loadSurveysRepositoryStub
+    loadSurveysRepositorySpy
   }
 }
 
@@ -30,25 +29,22 @@ describe('DbLoadSurveysUseCase', () => {
   })
 
   it('should call LoadSurveysRepository', async () => {
-    const { sut, loadSurveysRepositoryStub } = makeSut()
-    const loadSurveysSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadSurveys')
+    const { sut, loadSurveysRepositorySpy } = makeSut()
     await sut.load()
-    expect(loadSurveysSpy).toHaveBeenCalled()
+    expect(loadSurveysRepositorySpy.callsCount).toBe(1)
   })
 
   it('should return a surveys array on LoadSurveysRepository success', async () => {
-    const { sut } = makeSut()
+    const { sut, loadSurveysRepositorySpy } = makeSut()
     const surveys = await sut.load()
-    expect(surveys).toEqual(mockFakeSurveys())
+    expect(surveys).toEqual(loadSurveysRepositorySpy.surveys)
   })
 
   it('should throw if LoadSurveysRepository throws', async () => {
-    const { sut, loadSurveysRepositoryStub } = makeSut()
+    const { sut, loadSurveysRepositorySpy } = makeSut()
     jest
-      .spyOn(loadSurveysRepositoryStub, 'loadSurveys')
-      .mockImplementationOnce(() => {
-        throw new Error()
-      })
+      .spyOn(loadSurveysRepositorySpy, 'loadSurveys')
+      .mockImplementationOnce(throwError)
     const promise = sut.load()
     await expect(promise).rejects.toThrow()
   })

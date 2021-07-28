@@ -1,5 +1,5 @@
 import { EmailValidatorAdapter } from '@/infra/validators'
-import { Validation } from '@/presentation/protocols'
+import { Validation } from '@/validation/protocols'
 import {
   ValidationComposite,
   CompareFieldsValidation,
