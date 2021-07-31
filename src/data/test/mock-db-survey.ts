@@ -33,10 +33,10 @@ export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
 
 export class LoadSurveysRepositorySpy implements LoadSurveysRepository {
   surveys = mockSurveyModels()
-  callsCount = 0
+  accountId: string
 
-  async loadSurveys(): Promise<SurveyModel[]> {
-    this.callsCount++
+  async loadSurveys(accountId: string): Promise<SurveyModel[]> {
+    this.accountId = accountId
     return this.surveys
   }
 }

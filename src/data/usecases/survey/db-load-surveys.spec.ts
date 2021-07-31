@@ -1,3 +1,4 @@
+import faker from 'faker'
 import MockDate from 'mockdate'
 
 import { LoadSurveysRepositorySpy } from '@/data/test'
@@ -28,15 +29,17 @@ describe('DbLoadSurveysUseCase', () => {
     MockDate.reset()
   })
 
-  it('should call LoadSurveysRepository', async () => {
+  it('should call LoadSurveysRepository with correct value', async () => {
     const { sut, loadSurveysRepositorySpy } = makeSut()
-    await sut.load()
-    expect(loadSurveysRepositorySpy.callsCount).toBe(1)
+    const accountId = faker.datatype.uuid()
+    await sut.load(accountId)
+    expect(loadSurveysRepositorySpy.accountId).toBe(accountId)
   })
 
   it('should return a surveys array on LoadSurveysRepository success', async () => {
     const { sut, loadSurveysRepositorySpy } = makeSut()
-    const surveys = await sut.load()
+    const accountId = faker.datatype.uuid()
+    const surveys = await sut.load(accountId)
     expect(surveys).toEqual(loadSurveysRepositorySpy.surveys)
   })
 
@@ -45,7 +48,8 @@ describe('DbLoadSurveysUseCase', () => {
     jest
       .spyOn(loadSurveysRepositorySpy, 'loadSurveys')
       .mockImplementationOnce(throwError)
-    const promise = sut.load()
+    const accountId = faker.datatype.uuid()
+    const promise = sut.load(accountId)
     await expect(promise).rejects.toThrow()
   })
 })
