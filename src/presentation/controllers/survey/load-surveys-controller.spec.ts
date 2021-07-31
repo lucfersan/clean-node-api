@@ -1,10 +1,16 @@
+import faker from 'faker'
 import MockDate from 'mockdate'
 
 import { throwError } from '@/domain/test'
 import { noContent, ok, serverError } from '@/presentation/helpers'
+import { HttpRequest } from '@/presentation/protocols'
 import { LoadSurveysSpy } from '@/presentation/test'
 
 import { LoadSurveysController } from './load-surveys-controller'
+
+const mockRequest = (): HttpRequest => ({
+  accountId: faker.datatype.uuid()
+})
 
 type SutTypes = {
   sut: LoadSurveysController
@@ -29,29 +35,33 @@ describe('LoadSurveysController', () => {
     MockDate.reset()
   })
 
-  it('should call LoadSurveys', async () => {
+  it('should call LoadSurveys with correct value', async () => {
     const { sut, loadSurveysSpy } = makeSut()
-    await sut.handle({})
-    expect(loadSurveysSpy.callsCount).toBe(1)
+    const httpRequest = mockRequest()
+    await sut.handle(httpRequest)
+    expect(loadSurveysSpy.accountId).toBe(httpRequest.accountId)
   })
 
   it('should return 200 on LoadSurveys success', async () => {
     const { sut, loadSurveysSpy } = makeSut()
-    const httpResponse = await sut.handle({})
+    const httpRequest = mockRequest()
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(ok(loadSurveysSpy.surveyModels))
   })
 
   it('should return 204 if LoadSurveys returns an empty array', async () => {
     const { sut, loadSurveysSpy } = makeSut()
     loadSurveysSpy.surveyModels = []
-    const httpResponse = await sut.handle({})
+    const httpRequest = mockRequest()
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(noContent())
   })
 
   it('should return 500 if LoadSurveys throws', async () => {
     const { sut, loadSurveysSpy } = makeSut()
     jest.spyOn(loadSurveysSpy, 'load').mockImplementationOnce(throwError)
-    const httpResponse = await sut.handle({})
+    const httpRequest = mockRequest()
+    const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 })

@@ -27,10 +27,10 @@ export class LoadSurveyByIdSpy implements LoadSurveyById {
 
 export class LoadSurveysSpy implements LoadSurveys {
   surveyModels = mockSurveyModels()
-  callsCount = 0
+  accountId: string
 
-  async load(): Promise<SurveyModel[]> {
-    this.callsCount++
+  async load(accountId: string): Promise<SurveyModel[]> {
+    this.accountId = accountId
     return this.surveyModels
   }
 }
