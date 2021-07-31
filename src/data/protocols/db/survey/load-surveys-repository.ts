@@ -1,5 +1,5 @@
 import { DataSurveyModel } from '@/data/protocols'
 
 export interface LoadSurveysRepository {
-  loadSurveys: () => Promise<DataSurveyModel[]>
+  loadSurveys: (accountId: string) => Promise<DataSurveyModel[]>
 }
