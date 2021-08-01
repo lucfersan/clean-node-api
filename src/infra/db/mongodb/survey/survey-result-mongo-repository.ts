@@ -1,3 +1,4 @@
+import round from 'mongo-round'
 import { ObjectId } from 'mongodb'
 
 import {
@@ -32,7 +33,10 @@ export class SurveyResultMongoRepository
     )
   }
 
-  async loadBySurveyId(surveyId: string): Promise<DataSurveyResultModel> {
+  async loadBySurveyId(
+    surveyId: string,
+    accountId: string
+  ): Promise<DataSurveyResultModel> {
     const surveyResultCollection = await MongoHelper.getCollection(
       'surveyResults'
     )
@@ -72,6 +76,15 @@ export class SurveyResultMongoRepository
         },
         count: {
           $sum: 1
+        },
+        currentAccountAnswer: {
+          $push: {
+            $cond: [
+              { $eq: ['$data.accountId', accountId] },
+              '$data.answer',
+              null
+            ]
+          }
         }
       })
       .project({
@@ -111,6 +124,14 @@ export class SurveyResultMongoRepository
                       },
                       else: 0
                     }
+                  },
+                  isAnswerFromCurrentAccount: {
+                    $eq: [
+                      '$$item.answer',
+                      {
+                        $arrayElemAt: ['$currentAccountAnswer', 0]
+                      }
+                    ]
                   }
                 }
               ]
@@ -152,7 +173,8 @@ export class SurveyResultMongoRepository
           question: '$question',
           date: '$date',
           answer: '$answers.answer',
-          image: '$answers.image'
+          image: '$answers.image',
+          isAnswerFromCurrentAccount: '$answers.isAnswerFromCurrentAccount'
         },
         count: {
           $sum: '$answers.count'
@@ -170,7 +192,8 @@ export class SurveyResultMongoRepository
           answer: '$_id.answer',
           image: '$_id.image',
           count: '$count',
-          percent: '$percent'
+          percent: round('$percent'),
+          isAnswerFromCurrentAccount: '$_id.isAnswerFromCurrentAccount'
         }
       })
       .sort({
