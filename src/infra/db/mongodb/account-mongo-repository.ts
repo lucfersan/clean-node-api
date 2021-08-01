@@ -3,7 +3,6 @@ import {
   LoadAccountByEmailRepository,
   UpdateAccessTokenRepository,
   LoadAccountByTokenRepository,
-  DataAddAccountParams,
   DataAccountModel
 } from '@/data/protocols'
 import { MongoHelper } from '@/infra/db'
@@ -15,7 +14,9 @@ export class AccountMongoRepository
     UpdateAccessTokenRepository,
     LoadAccountByTokenRepository
 {
-  async add(data: DataAddAccountParams): Promise<DataAccountModel> {
+  async add(
+    data: AddAccountRepository.Params
+  ): Promise<AddAccountRepository.Result> {
     const accountCollection = await MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(data)
     return MongoHelper.map(result.ops[0])
