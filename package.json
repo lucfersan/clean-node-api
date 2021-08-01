@@ -23,7 +23,7 @@
     "test:ci": "yarn test --coverage",
     "test:coveralls": "yarn test:ci && yarn coveralls < coverage/lcov.info",
     "prettier": "prettier --write .",
-    "lint": "eslint src --ext ts --fix"
+    "lint": "eslint 'src/**' --fix"
   },
   "dependencies": {
     "bcrypt": "^5.0.1",
