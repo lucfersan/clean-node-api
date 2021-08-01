@@ -1,8 +1,8 @@
 import faker from 'faker'
 
-import { AuthenticationParams } from '@/domain/usecases'
+import { Authentication } from '@/domain/usecases'
 
-export const mockAuthenticationParams = (): AuthenticationParams => ({
+export const mockAuthenticationParams = (): Authentication.Params => ({
   email: faker.internet.email(),
   password: faker.internet.password()
 })

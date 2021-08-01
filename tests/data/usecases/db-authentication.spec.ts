@@ -106,7 +106,7 @@ describe('DbAuthentication', () => {
     )
   })
 
-  it('should return a AuthenticationModel on success', async () => {
+  it('should return a Authentication Result on success', async () => {
     const { sut, encrypterSpy, loadAccountByEmailRepositorySpy } = makeSut()
     const authenticationParams = mockAuthenticationParams()
     const { accessToken, name } = await sut.auth(authenticationParams)
