@@ -2,6 +2,7 @@ import faker from 'faker'
 
 import {
   AddAccountRepository,
+  CheckAccountByEmailRepository,
   LoadAccountByEmailRepository,
   LoadAccountByTokenRepository,
   UpdateAccessTokenRepository
@@ -33,6 +34,20 @@ export class LoadAccountByEmailRepositorySpy
   async loadByEmail(
     email: string
   ): Promise<LoadAccountByEmailRepository.Result> {
+    this.email = email
+    return this.result
+  }
+}
+
+export class CheckAccountByEmailRepositorySpy
+  implements CheckAccountByEmailRepository
+{
+  result = false
+  email: string
+
+  async checkByEmail(
+    email: string
+  ): Promise<CheckAccountByEmailRepository.Result> {
     this.email = email
     return this.result
   }
