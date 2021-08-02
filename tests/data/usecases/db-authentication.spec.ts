@@ -57,7 +57,7 @@ describe('DbAuthentication', () => {
 
   it('should return null if LoadAccountByEmailRepository returns null', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut()
-    loadAccountByEmailRepositorySpy.accountModel = null
+    loadAccountByEmailRepositorySpy.result = null
     const authenticationParams = mockAuthenticationParams()
     const authenticationModel = await sut.auth(authenticationParams)
     expect(authenticationModel).toBeNull()
@@ -77,7 +77,7 @@ describe('DbAuthentication', () => {
     await sut.auth(authenticationParams)
     expect(hashComparerSpy.plaintext).toBe(authenticationParams.password)
     expect(hashComparerSpy.digest).toBe(
-      loadAccountByEmailRepositorySpy.accountModel.password
+      loadAccountByEmailRepositorySpy.result.password
     )
   })
 
@@ -102,7 +102,7 @@ describe('DbAuthentication', () => {
     const authenticationParams = mockAuthenticationParams()
     await sut.auth(authenticationParams)
     expect(encrypterSpy.plaintext).toBe(
-      loadAccountByEmailRepositorySpy.accountModel.id
+      loadAccountByEmailRepositorySpy.result.id
     )
   })
 
@@ -111,7 +111,7 @@ describe('DbAuthentication', () => {
     const authenticationParams = mockAuthenticationParams()
     const { accessToken, name } = await sut.auth(authenticationParams)
     expect(accessToken).toBe(encrypterSpy.ciphertext)
-    expect(name).toBe(loadAccountByEmailRepositorySpy.accountModel.name)
+    expect(name).toBe(loadAccountByEmailRepositorySpy.result.name)
   })
 
   it('should call UpdatedAccessTokenRepository with correct values', async () => {
@@ -124,7 +124,7 @@ describe('DbAuthentication', () => {
     const authenticationParams = mockAuthenticationParams()
     await sut.auth(authenticationParams)
     expect(updatedAccessTokenRepositorySpy.id).toBe(
-      loadAccountByEmailRepositorySpy.accountModel.id
+      loadAccountByEmailRepositorySpy.result.id
     )
     expect(updatedAccessTokenRepositorySpy.token).toBe(encrypterSpy.ciphertext)
   })

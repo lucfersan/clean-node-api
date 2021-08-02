@@ -1,14 +1,12 @@
+import faker from 'faker'
+
 import { DbAddAccount } from '@/data/usecases'
 import {
   AddAccountRepositorySpy,
   HasherSpy,
   LoadAccountByEmailRepositorySpy
 } from '@/tests/data/mocks'
-import {
-  mockAccountModel,
-  mockAddAccountParams,
-  throwError
-} from '@/tests/domain/mocks'
+import { mockAddAccountParams, throwError } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: DbAddAccount
@@ -20,7 +18,7 @@ type SutTypes = {
 const makeSut = (): SutTypes => {
   const hasherSpy = new HasherSpy()
   const loadAccountByEmailRepositorySpy = new LoadAccountByEmailRepositorySpy()
-  loadAccountByEmailRepositorySpy.accountModel = null
+  loadAccountByEmailRepositorySpy.result = null
   const addAccountRepositorySpy = new AddAccountRepositorySpy()
   const sut = new DbAddAccount(
     hasherSpy,
@@ -72,7 +70,22 @@ describe('DbAddAccount', () => {
     await expect(promise).rejects.toThrow()
   })
 
-  it('should return an true on success', async () => {
+  it('should return true on success', async () => {
+    const { sut } = makeSut()
+    const addAccountParams = mockAddAccountParams()
+    const isAccountValid = await sut.add(addAccountParams)
+    expect(isAccountValid).toBe(true)
+  })
+
+  it('should return false if AddAccountRepository returns false', async () => {
+    const { sut, addAccountRepositorySpy } = makeSut()
+    addAccountRepositorySpy.result = false
+    const addAccountParams = mockAddAccountParams()
+    const isAccountValid = await sut.add(addAccountParams)
+    expect(isAccountValid).toBe(false)
+  })
+
+  it('should return true if LoadAccountByEmailRepository does not find an account', async () => {
     const { sut } = makeSut()
     const addAccountParams = mockAddAccountParams()
     const isAccountValid = await sut.add(addAccountParams)
@@ -81,7 +94,11 @@ describe('DbAddAccount', () => {
 
   it('should return false if LoadAccountByEmailRepository finds an account', async () => {
     const { sut, loadAccountByEmailRepositorySpy } = makeSut()
-    loadAccountByEmailRepositorySpy.accountModel = mockAccountModel()
+    loadAccountByEmailRepositorySpy.result = {
+      id: faker.datatype.uuid(),
+      name: faker.name.findName(),
+      password: faker.internet.password()
+    }
     const addAccountParams = mockAddAccountParams()
     const isAccountValid = await sut.add(addAccountParams)
     expect(isAccountValid).toBe(false)

@@ -74,14 +74,14 @@ describe('DbLoadAccountByToken', () => {
 
   it('should return null if LoadAccountByTokenRepository returns null', async () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut()
-    loadAccountByTokenRepositorySpy.accountModel = null
-    const account = await sut.load(token, role)
-    expect(account).toBeNull()
+    loadAccountByTokenRepositorySpy.result = null
+    const accountId = await sut.load(token, role)
+    expect(accountId).toBeNull()
   })
 
   it('should return an account on LoadAccountByTokenRepository success', async () => {
     const { sut, loadAccountByTokenRepositorySpy } = makeSut()
-    const account = await sut.load(token, role)
-    expect(account).toEqual(loadAccountByTokenRepositorySpy.accountModel)
+    const accountId = await sut.load(token, role)
+    expect(accountId).toEqual(loadAccountByTokenRepositorySpy.result)
   })
 })

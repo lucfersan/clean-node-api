@@ -1,5 +1,11 @@
-import { DataAccountModel } from '@/data/protocols'
-
 export interface LoadAccountByEmailRepository {
-  loadByEmail: (email: string) => Promise<DataAccountModel>
+  loadByEmail: (email: string) => Promise<LoadAccountByEmailRepository.Result>
+}
+
+export namespace LoadAccountByEmailRepository {
+  export type Result = {
+    id: string
+    name: string
+    password: string
+  }
 }
