@@ -2,10 +2,10 @@ import { ObjectId } from 'mongodb'
 
 import {
   AddSurveyRepository,
-  DataSurveyModel,
   LoadSurveyByIdRepository,
   LoadSurveysRepository
 } from '@/data/protocols'
+import { SurveyModel } from '@/domain/models'
 import { MongoHelper, QueryBuilder } from '@/infra/db'
 
 export class SurveyMongoRepository
@@ -21,7 +21,7 @@ export class SurveyMongoRepository
     await surveyCollection.insertOne(data)
   }
 
-  async loadSurveys(accountId: string): Promise<DataSurveyModel[]> {
+  async loadSurveys(accountId: string): Promise<SurveyModel[]> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     const query = new QueryBuilder()
       .lookup({
@@ -57,7 +57,7 @@ export class SurveyMongoRepository
     return surveys && MongoHelper.mapCollection(surveys)
   }
 
-  async loadById(id: string): Promise<DataSurveyModel> {
+  async loadById(id: string): Promise<SurveyModel> {
     const surveyCollection = await MongoHelper.getCollection('surveys')
     const survey = await surveyCollection.findOne({ _id: new ObjectId(id) })
     return survey && MongoHelper.map(survey)

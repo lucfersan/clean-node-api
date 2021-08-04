@@ -1,6 +1,6 @@
 import { Collection, ObjectId } from 'mongodb'
 
-import { DataSurveyModel } from '@/data/protocols'
+import { SurveyModel } from '@/domain/models'
 import { MongoHelper, SurveyResultMongoRepository } from '@/infra/db'
 import { mockAddAccountParams, mockAddSurveyParams } from '@/tests/domain/mocks'
 
@@ -8,7 +8,7 @@ let surveyCollection: Collection
 let surveyResultCollection: Collection
 let accountCollection: Collection
 
-const mockSurvey = async (): Promise<DataSurveyModel> => {
+const mockSurvey = async (): Promise<SurveyModel> => {
   const res = await surveyCollection.insertOne(mockAddSurveyParams())
   return MongoHelper.map(res.ops[0])
 }
