@@ -1,3 +1,4 @@
+import ObjectId from 'bson-objectid'
 import { Collection } from 'mongodb'
 
 import { MongoHelper, SurveyMongoRepository } from '@/infra/db'
@@ -87,6 +88,24 @@ describe('SurveyMongoRepository', () => {
       expect(survey.question).toBe(addSurveyParams.question)
       expect(survey.answers).toEqual(addSurveyParams.answers)
       expect(survey.date).toEqual(addSurveyParams.date)
+    })
+  })
+
+  describe('checkById()', () => {
+    it('should return true if survey exists', async () => {
+      const addSurveyParams = mockAddSurveyParams()
+      const res = await surveyCollection.insertOne(addSurveyParams)
+      const id = res.ops[0]._id
+      const sut = makeSut()
+      const exists = await sut.checkById(id)
+      expect(exists).toBe(true)
+    })
+
+    it('should return false if survey does not exist', async () => {
+      const sut = makeSut()
+      const id = new ObjectId().toHexString()
+      const exists = await sut.checkById(id)
+      expect(exists).toBe(false)
     })
   })
 })
