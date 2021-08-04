@@ -28,7 +28,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('DbLoadSurveyResultUseCase', () => {
+describe('DbLoadSurveyResult', () => {
   let surveyId: string
   let accountId: string
 

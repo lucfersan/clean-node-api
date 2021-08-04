@@ -18,7 +18,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('DbLoadSurveyByIdUseCase', () => {
+describe('DbCheckSurveyById', () => {
   let surveyId: string
 
   beforeEach(() => {
