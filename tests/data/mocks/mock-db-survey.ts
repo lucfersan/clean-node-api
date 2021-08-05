@@ -1,6 +1,9 @@
+import faker from 'faker'
+
 import {
   AddSurveyRepository,
   CheckSurveyByIdRepository,
+  LoadAnswersBySurveyRepository,
   LoadSurveyByIdRepository,
   LoadSurveyResultRepository,
   LoadSurveysRepository,
@@ -29,6 +32,22 @@ export class LoadSurveyByIdRepositorySpy implements LoadSurveyByIdRepository {
   id: string
 
   async loadById(id: string): Promise<LoadSurveyByIdRepository.Result> {
+    this.id = id
+    return this.result
+  }
+}
+
+export class LoadAnswersBySurveyRepositorySpy
+  implements LoadAnswersBySurveyRepository
+{
+  result: LoadAnswersBySurveyRepository.Result = [
+    faker.random.word(),
+    faker.random.word()
+  ]
+
+  id: string
+
+  async loadAnswers(id: string): Promise<LoadAnswersBySurveyRepository.Result> {
     this.id = id
     return this.result
   }
