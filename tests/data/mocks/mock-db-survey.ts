@@ -9,7 +9,7 @@ import {
   LoadSurveysRepository,
   SaveSurveyResultRepository
 } from '@/data/protocols'
-import { SurveyModel, SurveyResultModel } from '@/domain/models'
+import { SurveyResultModel } from '@/domain/models'
 import { SaveSurveyResultParams } from '@/domain/usecases'
 import {
   mockSurveyModels,
@@ -54,12 +54,12 @@ export class LoadAnswersBySurveyRepositorySpy
 }
 
 export class LoadSurveysRepositorySpy implements LoadSurveysRepository {
-  surveys = mockSurveyModels()
+  result = mockSurveyModels()
   accountId: string
 
-  async loadSurveys(accountId: string): Promise<SurveyModel[]> {
+  async loadSurveys(accountId: string): Promise<LoadSurveysRepository.Result> {
     this.accountId = accountId
-    return this.surveys
+    return this.result
   }
 }
 

@@ -39,7 +39,7 @@ describe('DbLoadSurveys', () => {
     const { sut, loadSurveysRepositorySpy } = makeSut()
     const accountId = faker.datatype.uuid()
     const surveys = await sut.load(accountId)
-    expect(surveys).toEqual(loadSurveysRepositorySpy.surveys)
+    expect(surveys).toEqual(loadSurveysRepositorySpy.result)
   })
 
   it('should throw if LoadSurveysRepository throws', async () => {
