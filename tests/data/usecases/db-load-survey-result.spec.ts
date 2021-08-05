@@ -64,7 +64,7 @@ describe('DbLoadSurveyResult', () => {
   it('should call LoadSurveyByIdRepository if LoadSurveyResultRepository returns null', async () => {
     const { sut, loadSurveyResultRepositorySpy, loadSurveyByIdRepositorySpy } =
       makeSut()
-    loadSurveyResultRepositorySpy.surveyResultModel = null
+    loadSurveyResultRepositorySpy.result = null
     await sut.load(surveyId, accountId)
     expect(loadSurveyByIdRepositorySpy.id).toBe(surveyId)
   })
@@ -72,7 +72,7 @@ describe('DbLoadSurveyResult', () => {
   it('should return a survey result with all answers with count and percent 0 if LoadSurveyResultRepository returns null', async () => {
     const { sut, loadSurveyResultRepositorySpy, loadSurveyByIdRepositorySpy } =
       makeSut()
-    loadSurveyResultRepositorySpy.surveyResultModel = null
+    loadSurveyResultRepositorySpy.result = null
     const surveyResult = await sut.load(surveyId, accountId)
     const { result } = loadSurveyByIdRepositorySpy
     expect(surveyResult).toEqual({
@@ -91,8 +91,6 @@ describe('DbLoadSurveyResult', () => {
   it('should return a survey result on success', async () => {
     const { sut, loadSurveyResultRepositorySpy } = makeSut()
     const surveyResult = await sut.load(surveyId, accountId)
-    expect(surveyResult).toEqual(
-      loadSurveyResultRepositorySpy.surveyResultModel
-    )
+    expect(surveyResult).toEqual(loadSurveyResultRepositorySpy.result)
   })
 })
