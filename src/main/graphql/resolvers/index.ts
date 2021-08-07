@@ -1,3 +1,5 @@
 import authentication from './authentication'
+import base from './base'
+import surveys from './surveys'
 
-export default [authentication]
+export default [authentication, base, surveys]
