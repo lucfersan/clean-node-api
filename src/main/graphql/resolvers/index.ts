@@ -1,3 +1,3 @@
-import login from './login'
+import authentication from './authentication'
 
-export default [login]
+export default [authentication]

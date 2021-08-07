@@ -1,4 +1,4 @@
+import authentication from './authentication'
 import base from './base'
-import login from './login'
 
-export default [base, login]
+export default [base, authentication]
