@@ -7,7 +7,7 @@ import { MongoHelper } from '@/infra/db'
 import app from '@/main/config/app'
 import env from '@/main/config/env'
 
-const makeAccessToken = async (): Promise<string> => {
+const mockAccessToken = async (): Promise<string> => {
   const password = await hash('any_password', 12)
   const result = await accountCollection.insertOne({
     name: 'any_name',
@@ -68,7 +68,7 @@ describe('SurveyRoutes', () => {
     })
 
     it('should return 204 on add survey with a valid accessToken', async () => {
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       await request(app)
         .post('/api/surveys')
         .set('x-access-token', accessToken)
@@ -94,7 +94,7 @@ describe('SurveyRoutes', () => {
     })
 
     it('should return 200/204 on load surveys with a valid accessToken', async () => {
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       await request(app)
         .get('/api/surveys')
         .set('x-access-token', accessToken)

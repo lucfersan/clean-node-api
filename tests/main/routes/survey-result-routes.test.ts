@@ -7,7 +7,7 @@ import { MongoHelper } from '@/infra/db'
 import app from '@/main/config/app'
 import env from '@/main/config/env'
 
-const makeAccessToken = async (): Promise<string> => {
+const mockAccessToken = async (): Promise<string> => {
   const password = await hash('any_password', 12)
   const result = await accountCollection.insertOne({
     name: 'any_name',
@@ -73,7 +73,7 @@ describe('SurveyResultRoutes', () => {
         ],
         date: new Date()
       })
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       const id = response.ops[0]._id
       await request(app)
         .put(`/api/surveys/${id}/results`)
@@ -105,7 +105,7 @@ describe('SurveyResultRoutes', () => {
         ],
         date: new Date()
       })
-      const accessToken = await makeAccessToken()
+      const accessToken = await mockAccessToken()
       const id = response.ops[0]._id
       await request(app)
         .get(`/api/surveys/${id}/results`)
