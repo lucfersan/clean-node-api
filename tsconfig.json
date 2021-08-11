@@ -2,6 +2,8 @@
   "compilerOptions": {
     "outDir": "dist",
     "rootDirs": ["src", "tests"],
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "target": "es2019",
     "esModuleInterop": true,
