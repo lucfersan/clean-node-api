@@ -22,9 +22,7 @@
     "test:ci": "yarn test --coverage",
     "test:coveralls": "yarn test:ci && yarn coveralls < coverage/lcov.info",
     "prettier": "prettier --write .",
-    "lint": "yarn lint:src && yarn lint:tests",
-    "lint:src": "eslint 'src/**' --fix",
-    "lint:tests": "eslint 'tests/**' --fix"
+    "lint": "eslint 'src/**' 'tests/**' --fix"
   },
   "dependencies": {
     "@graphql-tools/schema": "7.1.5",
