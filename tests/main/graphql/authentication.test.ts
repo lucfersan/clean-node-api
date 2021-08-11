@@ -26,7 +26,7 @@ describe('Authentication GraphQL', () => {
 
   describe('Login Query', () => {
     const loginQuery = gql`
-      query login($email: String!, $password: String!) {
+      query ($email: String!, $password: String!) {
         login(email: $email, password: $password) {
           accessToken
           name
@@ -61,7 +61,7 @@ describe('Authentication GraphQL', () => {
 
   describe('SignUp Mutation', () => {
     const signUpMutation = gql`
-      mutation signUp(
+      mutation (
         $name: String!
         $email: String!
         $password: String!

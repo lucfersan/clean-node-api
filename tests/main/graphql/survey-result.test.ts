@@ -57,7 +57,7 @@ describe('SurveyResult GraphQL', () => {
 
   describe('SurveyResult Query', () => {
     const surveyResultQuery = gql`
-      query surveys($surveyId: String!) {
+      query ($surveyId: String!) {
         surveyResult(surveyId: $surveyId) {
           question
           answers {
