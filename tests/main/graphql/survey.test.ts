@@ -66,6 +66,7 @@ describe('Survey GraphQL', () => {
         }
       }
     `
+
     it('should return surveys', async () => {
       const accessToken = await mockAccessToken()
       const now = new Date()
@@ -92,7 +93,6 @@ describe('Survey GraphQL', () => {
       const res = await apolloServer.executeOperation({
         query: surveysQuery
       })
-      console.log(res.errors?.[0])
       expect(res.data.surveys.length).toBe(1)
       expect(res.data.surveys[0].id).toBeTruthy()
       expect(res.data.surveys[0].question).toBe('any_question')
@@ -108,6 +108,14 @@ describe('Survey GraphQL', () => {
       ])
       expect(res.data.surveys[0].didAnswer).toBe(false)
       expect(res.data.surveys[0].date).toBe(now.toISOString())
+    })
+
+    it('should return AccessDenied if no accessToken is provided', async () => {
+      const res = await apolloServer.executeOperation({
+        query: surveysQuery
+      })
+      expect(res.data).toBeFalsy()
+      expect(res.errors[0].message).toBe('Access denied')
     })
   })
 })
