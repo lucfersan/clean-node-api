@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-express'
 import { hash } from 'bcrypt'
+import ObjectId from 'bson-objectid'
 import { sign } from 'jsonwebtoken'
 import { Collection } from 'mongodb'
 
@@ -115,6 +116,17 @@ describe('SurveyResult GraphQL', () => {
         }
       ])
       expect(res.data.surveyResult.date).toBe(now.toISOString())
+    })
+
+    it('should return AccessDenied if no accessToken is provided', async () => {
+      const res = await apolloServer.executeOperation({
+        query: surveyResultQuery,
+        variables: {
+          surveyId: new ObjectId().toHexString()
+        }
+      })
+      expect(res.data).toBeFalsy()
+      expect(res.errors[0].message).toBe('Access denied')
     })
   })
 })
