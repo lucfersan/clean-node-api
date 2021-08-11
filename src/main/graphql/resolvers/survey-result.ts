@@ -6,12 +6,12 @@ import {
 
 export default {
   Query: {
-    surveyResult: async (_: any, args: any) =>
-      adaptResolver(makeLoadSurveyResultController(), args)
+    surveyResult: async (_: any, args: any, context: any) =>
+      adaptResolver(makeLoadSurveyResultController(), args, context)
   },
 
   Mutation: {
-    saveSurveyResult: async (_: any, args: any) =>
-      adaptResolver(makeSaveSurveyResultController(), args)
+    saveSurveyResult: async (_: any, args: any, context: any) =>
+      adaptResolver(makeSaveSurveyResultController(), args, context)
   }
 }
